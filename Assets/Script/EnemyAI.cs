@@ -8,12 +8,13 @@ public class EnemyAI : MonoBehaviour
     public float patrolSpeed = 2f;    // Скорость патрулирования
     [Header("Обнаружение игрока")]
     public float detectionRadius = 5f; // Радиус обнаружения
-    public float attackRadius = 2f;    // Радиус атаки// Слой игрока
+    public float attackRadius = 2f;    // Радиус атаки
+    public LayerMask playerLayer;      // Слой игрока
     [Header("Атака")]
     public float attackCooldown = 1f;  // Перезарядка атаки
     public int attackDamage = 10;      // Урон
     private Transform currentTarget;   // Текущая точка патрулирования
-    public Transform player;          // Ссылка на игрока
+    private Transform player;          // Ссылка на игрока
     private float lastAttackTime;      // Время последней атаки
     private bool isPatrolling = true;  // Режим патрулирования
     void Start()
@@ -21,6 +22,7 @@ public class EnemyAI : MonoBehaviour
         // Начинаем с точки A
         currentTarget = pointA;
         // Ищем игрока по тегу
+        player = GameObject.FindGameObjectWithTag("Player").transform;
     }
     void Update()
     {
