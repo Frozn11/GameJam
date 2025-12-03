@@ -3,31 +3,40 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
-{
+public class PlayerController : MonoBehaviour {
+    
+    
+    //Movement
     public float speed = 5f;//переменная, которая хранит скорость движения персонажа.
-    private Rigidbody2D rb;//переменная, которая отвечает за физическое поведение персонажа
-    private Vector2 movement;//переменная, хранящая направление движения.
     public LayerMask whatIsGround; // Перетащи сюда слой Ground
+    private Vector2 lastMoveSpeed;
+    float fallSpeed;
+    
     
     //Jumping
     private bool readyToJump = true;
-    private float jumpCooldown = 0.25f;
+    private float jumpCooldown = 0.32f;
     public float jumpForce = 7f;
+    public float coyoteTime = 0.3f;
     [HideInInspector]
     public int jumpsLeft = 1;
+    public int maxJumps = 1;
     private int jumpCounterResetTime = 10;
     private int resetJumpCounter;
     
     //Input
-    float x;
+    float x, y;
 
     public bool grounded, jumping, dead;
     
     // BoxCast parameters - using for ground check
-    Vector2 boxSize = new Vector2(0.8f, 0.1f); // x, y
-    float distance = 1f;
+    Vector2 boxSize = new Vector2(1.01f, 0.1f); // x, y
+    float distance = 0.99f;
     Vector2 direction = Vector2.down; 
+    
+    //other
+    private Rigidbody2D rb;//переменная, которая отвечает за физическое поведение персонажа
+    
     
     public static PlayerController Instance;
 
@@ -35,10 +44,17 @@ public class PlayerController : MonoBehaviour
         Instance = this;
         rb = GetComponent<Rigidbody2D>();// при запуске игры получвсем физику у персонажа
     }
-    
+
+    void Update() {
+        if (!dead) {
+            fallSpeed = rb.linearVelocity.y;
+            lastMoveSpeed = VectorExtensions.XZVector(rb.linearVelocity);
+            
+        }
+    }
 
     public void Jump() {
-        if ((grounded || jumpsLeft > 0) && readyToJump) {
+        if ((grounded && jumpsLeft >= 0) && readyToJump) {
             readyToJump = false;
             jumpsLeft--;
             resetJumpCounter = 0;
@@ -46,9 +62,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void SetInput(Vector2 dir, bool jumping)
-    {
+    public void SetInput(Vector2 dir, bool jumping) {
         x = dir.x;
+        y = dir.y;
         this.jumping = jumping;
     }
 
@@ -58,7 +74,7 @@ public class PlayerController : MonoBehaviour
 		this.x = x;
         if (readyToJump && jumping) Jump();
         
-         rb.linearVelocity = new Vector2(movement.x * speed, rb.linearVelocity.y);//изменяет скорость персонажа по горизонтали
+         rb.linearVelocity = new Vector2(x * speed, rb.linearVelocity.y);//изменяет скорость персонажа по горизонтали
          
          if (!readyToJump) {
              resetJumpCounter++;
@@ -69,8 +85,7 @@ public class PlayerController : MonoBehaviour
          }
     }
     
-    private void ResetJump()
-    {
+    private void ResetJump() {
         readyToJump = true;
     }
     
@@ -79,20 +94,23 @@ public class PlayerController : MonoBehaviour
         
         if (hit) {
             grounded = true;
+            jumpsLeft = maxJumps;
         }
         else {
-            grounded = false;
+            Invoke("NotOnGround", coyoteTime);
         }
     }
-    
-    void OnDrawGizmosSelected() // Runs when the GameObject is selected in the Scene view
-    {
+
+    void NotOnGround() {
+        grounded = false;
+    }
+
+
+    void OnDrawGizmosSelected(){
+        Vector2 position = transform.position;
         
-        Vector3 position = transform.position;
-        
-        // Optional: Draw the box at the end of the cast (blue wireframe)
         Gizmos.color = Color.blue;
-        Gizmos.DrawWireCube(position + (Vector3)(direction * distance), new Vector3(boxSize.x, boxSize.y, 0));
+        Gizmos.DrawWireCube(position + (Vector2)(direction * distance), new Vector2(boxSize.x, boxSize.y));
     }
     
 
