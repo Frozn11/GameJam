@@ -40,11 +40,11 @@ public class EnemyController : MonoBehaviour
         
         
         // Flip sprite based on direction
-        if (rb.velocity.x > 0 && !facingRight)
+        if (rb.linearVelocity.x > 0 && !facingRight)
         {
             Flip();
         }
-        else if (rb.velocity.x < 0 && facingRight)
+        else if (rb.linearVelocity.x < 0 && facingRight)
         {
             Flip();
         }
@@ -77,15 +77,15 @@ public class EnemyController : MonoBehaviour
         // Move left/right within patrol distance
         if (transform.position.x >= startPosition.x + patrolDistance)
         {
-            rb.velocity = new Vector2(-speed, rb.velocity.y);
+            rb.linearVelocity = new Vector2(-speed, rb.linearVelocity.y);
         }
         else if (transform.position.x <= startPosition.x - patrolDistance)
         {
-            rb.velocity = new Vector2(speed, rb.velocity.y);
+            rb.linearVelocity = new Vector2(speed, rb.linearVelocity.y);
         }
         else
         {
-            rb.velocity = new Vector2(speed, rb.velocity.y); // Default right
+            rb.linearVelocity = new Vector2(speed, rb.linearVelocity.y); // Default right
         }
     }
 
@@ -93,7 +93,7 @@ public class EnemyController : MonoBehaviour
     {
         // Move towards player
         Vector2 direction = (player.position - transform.position).normalized;
-        rb.velocity = new Vector2(direction.x * chaseSpeed, rb.velocity.y);
+        rb.linearVelocity = new Vector2(direction.x * chaseSpeed, rb.linearVelocity.y);
     }
 
     private void OnTriggerEnter(Collider other) {

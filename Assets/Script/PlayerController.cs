@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
          if (Input.GetKeyDown(KeyCode.Space) && grounded)//проверка на нажатие клавишь и стоит ли персонаж на земле
          {
              Debug.Log("Jump");
-             rb.velocity = new Vector2(rb.velocity.x, jumpForce);//если условия верны то происходит прыжок
+             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);//если условия верны то происходит прыжок
          }
          Vector2 boxSize = new Vector2(1, 0.1f); // Example: 0.8 wide, 0.1 tall
          float distance = 1.5f; // Same as ray distance
@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour
      
     void FixedUpdate()
     {
-         rb.velocity = new Vector2(movement.x * speed, rb.velocity.y);//изменяет скорость персонажа по горизонтали
+         rb.linearVelocity = new Vector2(movement.x * speed, rb.linearVelocity.y);//изменяет скорость персонажа по горизонтали
     }
     
     void OnDrawGizmosSelected() // Runs when the GameObject is selected in the Scene view
