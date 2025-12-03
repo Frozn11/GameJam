@@ -96,12 +96,12 @@ public class EnemyController : MonoBehaviour
         // Simple attack: Deal damage or knockback (customize as needed)
         Debug.Log("Attacking Player!");
         // Example: Apply force to player
-        Rigidbody2D playerRb = player.GetComponent<Rigidbody2D>();
-        if (playerRb != null)
-        {
-            Vector2 knockback = (player.position - transform.position).normalized * 5f;
-            playerRb.AddForce(knockback, ForceMode2D.Impulse);
-        }
+        // Rigidbody2D playerRb = player.GetComponent<Rigidbody2D>();
+        // if (playerRb != null)
+        // {
+        //     Vector2 knockback = (player.position - transform.position).normalized * 5f;
+        //     playerRb.AddForce(knockback, ForceMode2D.Impulse);
+        // }
     }
 
     void Flip()
