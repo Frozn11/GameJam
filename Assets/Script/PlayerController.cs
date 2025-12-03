@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour
          movement.x = Input.GetAxis("Horizontal");//определяет, что персонаж будет двигаться только влево или вправо
          if (Input.GetKeyDown(KeyCode.Space) && grounded)//проверка на нажатие клавишь и стоит ли персонаж на земле
          {
-             rb.velocity = new Vector2(rb.velocity.x, jumpForce);//если условия верны то происходит прыжок
+             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);//если условия верны то происходит прыжок
          }
          Debug.DrawRay(transform.position, -transform.up * 1.5f, Color.red, 1);
          RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 1.5f, whatIsGround);
@@ -42,6 +42,6 @@ public class PlayerController : MonoBehaviour
      
     void FixedUpdate()//метод вызывается с фиксированным временным шагом и используется для работы с физикой
     {
-         rb.velocity = new Vector2(movement.x * speed, rb.velocity.y);//изменяет скорость персонажа по горизонтали
+         rb.linearVelocity = new Vector2(movement.x * speed, rb.linearVelocity.y);//изменяет скорость персонажа по горизонтали
     }
 }
