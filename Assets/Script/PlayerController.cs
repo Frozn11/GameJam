@@ -10,27 +10,29 @@ public class PlayerController : MonoBehaviour
     private Vector2 movement;//переменная, хранящая направление движения.
     public bool grounded;//переменная, указывающая, стоит ли персонаж на земле.
      
-    public LayerMask whatIsGround; // Перетащи сюда слой Ground
+    public LayerMask whatIsGround; 
      
     private Vector3 normalVector = Vector3.up;
     public float maxSlopeAngle = 35f;
     public float groundingCancelDelay = 0.15f; 
 
      
-    void Start()//метод который запускается один раз, при старте
+    void Start()
     {
          rb = GetComponent<Rigidbody2D>();// при запуске игры получвсем физику у персонажа
 
     }
-    void Update()//метод который вызывается каждый кадр
+    void Update()
     {
          movement.x = Input.GetAxis("Horizontal");//определяет, что персонаж будет двигаться только влево или вправо
          if (Input.GetKeyDown(KeyCode.Space) && grounded)//проверка на нажатие клавишь и стоит ли персонаж на земле
          {
-             rb.velocity = new Vector2(rb.velocity.x, jumpForce);//если условия верны то происходит прыжок
+             Debug.Log("Jump");
+             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);//если условия верны то происходит прыжок
          }
-         Debug.DrawRay(transform.position, -transform.up * 1.5f, Color.red, 1);
-         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 1.5f, whatIsGround);
+         Vector2 boxSize = new Vector2(1, 0.1f); // Example: 0.8 wide, 0.1 tall
+         float distance = 1.5f; // Same as ray distance
+         RaycastHit2D hit = Physics2D.BoxCast(transform.position, boxSize, 0f, Vector2.down, distance, whatIsGround);
          if (hit) {
              grounded = true;
          }
@@ -40,8 +42,23 @@ public class PlayerController : MonoBehaviour
 
     }
      
-    void FixedUpdate()//метод вызывается с фиксированным временным шагом и используется для работы с физикой
+    void FixedUpdate()
     {
-         rb.velocity = new Vector2(movement.x * speed, rb.velocity.y);//изменяет скорость персонажа по горизонтали
+         rb.linearVelocity = new Vector2(movement.x * speed, rb.linearVelocity.y);//изменяет скорость персонажа по горизонтали
     }
+    
+    void OnDrawGizmosSelected() // Runs when the GameObject is selected in the Scene view
+    {
+        // Match your BoxCast parameters
+        Vector2 boxSize = new Vector2(1, 0.1f); // Adjust to your box size
+        Vector3 position = transform.position;
+        float distance = 1.5f; // Match your cast distance
+        Vector2 direction = Vector2.down; // Match your direction
+        
+        // Optional: Draw the box at the end of the cast (blue wireframe)
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireCube(position + (Vector3)(direction * distance), new Vector3(boxSize.x, boxSize.y, 0));
+    }
+    
+    
 }
