@@ -13,6 +13,7 @@ public class Damage : MonoBehaviour {
     
     public void OnTriggerEnter2D(Collider2D other) {
         if (other.gameObject.layer == LayerMask.NameToLayer("Player") && whoDamage == whoDamage.Player) {
+            Debug.Log("MAN GET DAMAGE");
             HealthBar.Instance.Damage(1);
         }
 
