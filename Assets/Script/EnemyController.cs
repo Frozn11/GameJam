@@ -5,7 +5,7 @@ public class EnemyController : MonoBehaviour
     [Header("Movement")]
     public float moveSpeed = 3f;
     // Use a single boolean to track direction
-    private bool isFacingRight = true; 
+    public bool isFacingRight = true; 
 
     [Header("Patrol & Collision")]
     public LayerMask groundLayer;
@@ -33,10 +33,11 @@ public class EnemyController : MonoBehaviour
         isGroundedR = Physics2D.Raycast(leftRayOrigin, Vector2.down, groundLayer);
         
         Vector3 start = playerLook.position;
-        Vector3 end = start + (isFacingRight ? Vector3.right : Vector3.left) * lookLength;
+        Vector3 end = start + (isFacingRight ? Vector3.right : Vector3.left);
         
-        playerDetected = Physics2D.BoxCast(start, end, 2, end, groundLayer);
+        playerDetected = Physics2D.Raycast(start, end, lookLength, playerLayer);
         
+        Debug.DrawLine(start, end * lookLength, Color.red);
         Debug.DrawRay(new Vector2(transform.position.x + GroundRayL, transform.position.y - 0.5f), Vector2.down, Color.red);
         Debug.DrawRay(new Vector2(transform.position.x - GroundRayR, transform.position.y - 0.5f), Vector2.down, Color.red);
         
@@ -70,42 +71,4 @@ public class EnemyController : MonoBehaviour
         localScale.x = -1f; // Reverse the X scale
         transform.localScale = localScale;
     }
-    
-// --- Add this method to your EnemyController script ---
-
-    private void OnDrawGizmosSelected()
-    {
-        // Ensure we have a Rigidbody to get the correct origin
-        if (rb == null) return;
-
-        // Define the exact parameters used in the BoxCast check
-        Vector2 boxCastSize = new Vector2(1f, 1f); // Use the same size as in the check
-        float boxCastDistance = lookLength;        
-        Vector2 boxCastDirection = isFacingRight ? Vector2.right : Vector2.left;
-        Vector2 boxCastOrigin = rb.position; 
-    
-        // Calculate the center of the total swept area for easier visualization
-        Vector2 centerOfSweep = boxCastOrigin + (boxCastDirection * boxCastDistance / 2f);
-    
-        // Create the final position of the box
-        Vector2 finalBoxCenter = boxCastOrigin + (boxCastDirection * boxCastDistance);
-
-        // 1. Draw the total swept volume (as a wire cube)
-        // This cube represents the whole detection area from start to finish.
-        Gizmos.color = new Color(1f, 0.5f, 0f, 0.5f); // Orange color, semi-transparent
-        Gizmos.DrawWireCube(centerOfSweep, new Vector3(
-            boxCastSize.x + boxCastDistance, // Width is the box width + sweep distance
-            boxCastSize.y,
-            0f
-        ));
-
-        // 2. Draw the starting box (clearer starting point)
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireCube(boxCastOrigin, boxCastSize);
-
-        // 3. Draw the final position of the box
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(finalBoxCenter, boxCastSize);
-    }
-    
 }
