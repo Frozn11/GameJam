@@ -19,14 +19,14 @@ public class HealthBar : MonoBehaviour {
 
 
     public void Damage(int damage) {
-        if (healthCurrent >= 1) return;
+        if (healthCurrent <= 0) return;
         healthCurrent -= damage;
         healthBarImage[healthCurrent].enabled = false;
         if (healthCurrent <= 0) dead = true;
-        
     }   
     public void Heal(int heal) {
         healthCurrent += heal;
+        healthBarImage[healthCurrent - 1].enabled = true;
     }
 }
 
