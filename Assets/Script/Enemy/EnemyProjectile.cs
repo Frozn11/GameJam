@@ -2,7 +2,6 @@ using System;
 using UnityEngine;
 
 public class EnemyProjectile : MonoBehaviour {
-    private GameObject player;
     private Rigidbody2D rb;
     
     public float speed;
@@ -10,9 +9,8 @@ public class EnemyProjectile : MonoBehaviour {
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        player = GameObject.FindGameObjectWithTag("Player");
-        
-        Vector3 direction = player.transform.position - transform.position;
+
+        Vector3 direction = PlayerController.Instance.gameObject.transform.position - transform.position;
         rb.linearVelocity = new Vector2(direction.x, direction.y).normalized * speed;
 
         float rot = Mathf.Atan2(-direction.y, -direction.x) * Mathf.Rad2Deg;

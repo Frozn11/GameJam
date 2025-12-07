@@ -625,6 +625,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   projectile: {fileID: 4651818689140724863, guid: 65638e52c9b1cbe4eb17667ea5f2c515, type: 3}
   projectilePos: {fileID: 677405931}
+--- !u!4 &1727408553 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1787677673509626483, guid: c218ec1955dfef04b879a4621d5714f5, type: 3}
+  m_PrefabInstance: {fileID: 1936247112}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1936247112
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -633,6 +638,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 194060713348833229, guid: c218ec1955dfef04b879a4621d5714f5, type: 3}
+      propertyPath: LookPos
+      value: 
+      objectReference: {fileID: 1727408553}
     - target: {fileID: 1639872321532803098, guid: c218ec1955dfef04b879a4621d5714f5, type: 3}
       propertyPath: m_Name
       value: Enamy
@@ -839,6 +848,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Damage
   whoDamage: 0
+  DestroyOnCollision: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
