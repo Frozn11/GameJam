@@ -7,6 +7,12 @@ public class PlayerCreateProjectile : MonoBehaviour {
     public bool shoot, coolDown;
     
 
+    public static PlayerCreateProjectile Instance;
+
+    void Awake() {
+        Instance = this;
+    }
+    
     public void SetInput(bool shoot) {
         this.shoot = shoot;
     }
@@ -21,8 +27,14 @@ public class PlayerCreateProjectile : MonoBehaviour {
     
     public void CreateProjectile() {
         //moves projectileSpawnPos.position.x by .33 meters
-        Vector2 Pos = new Vector2(projectileSpawnPos.position.x + .33f, projectileSpawnPos.position.y);
+        Vector2 Pos = new Vector2(projectileSpawnPos.position.x, projectileSpawnPos.position.y);
         Instantiate(projectile, Pos, projectileSpawnPos.rotation);
+    }
+
+    public void Flip(float flip) {
+        Vector3 localScale = projectileSpawnPos.localScale;
+        localScale.x = flip; // change's the X scale
+        projectileSpawnPos.localScale = localScale;
     }
 
     void ResetCoolDown() {
