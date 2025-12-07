@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f4eec857a4fdf2f43be0e9f3d1a984e7
+guid: c1a17b682b81fb8438e9d31252ccf86b
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Unity
+  - Stalinist One
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
