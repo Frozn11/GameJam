@@ -32,10 +32,13 @@ public class OptionsMenu : MonoBehaviour
     }
 
     public void Restart() {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Time.timeScale = 1;
         
     }
 
-    public void BackToMenu() {
+    public void QuitToMenu() {
         SceneManager.LoadScene("MainMenu");
+        Time.timeScale = 1;
     }
 }
