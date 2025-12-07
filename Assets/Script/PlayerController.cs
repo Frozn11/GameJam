@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour {
     //Input
     float x, y;
 
-    public bool grounded, jumping, dead;
+    public bool grounded, jumping, dead, lookingRight = true;
     
     // BoxCast parameters - using for ground check
     Vector2 boxSize = new Vector2(1.01f, 0.1f); // x, y
@@ -75,6 +75,21 @@ public class PlayerController : MonoBehaviour {
         if (readyToJump && jumping) Jump();
         
          rb.linearVelocity = new Vector2(x * speed, rb.linearVelocity.y);//изменяет скорость персонажа по горизонтали
+         
+         Debug.Log(x);
+         if (x == 1) {
+             lookingRight = true;
+             Vector3 localScale = transform.localScale;
+             localScale.x = 1f; // Reverse the X scale
+             transform.localScale = localScale;
+         }
+         
+         if (x == -1) {
+             lookingRight = false;
+             Vector3 localScale = transform.localScale;
+             localScale.x = -1f; // Reverse the X scale
+             transform.localScale = localScale;
+         }
          
          if (!readyToJump) {
              resetJumpCounter++;
