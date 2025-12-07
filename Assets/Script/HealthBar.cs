@@ -6,12 +6,7 @@ public class HealthBar : MonoBehaviour {
     public Image[] healthBarImage;
     public bool dead;
 
-    public static HealthBar Instance;
 
-    void Awake() {
-        Instance = this;
-    }
-    
     void Start() {
         healthCurrent = healthBarImage.Length;
     }
