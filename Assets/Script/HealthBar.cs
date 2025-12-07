@@ -25,6 +25,7 @@ public class HealthBar : MonoBehaviour {
         if (healthCurrent <= 0) dead = true;
     }   
     public void Heal(int heal) {
+        if (healthCurrent >= healthBarImage.Length) return;
         healthCurrent += heal;
         healthBarImage[healthCurrent - 1].enabled = true;
     }
