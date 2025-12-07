@@ -21,9 +21,5 @@ public class PlayerProjectile : MonoBehaviour {
  
         Destroy(gameObject, timeToDestroy);
     }
-
-    // Update is called once per frame
-    void FixedUpdate() {
-        //rb.linearVelocity = new Vector2((goRight ? transform.position.x * speed : -transform.position.x * -speed), 0);
-    }
+    
 }

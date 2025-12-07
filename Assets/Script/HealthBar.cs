@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,6 +7,12 @@ public class HealthBar : MonoBehaviour {
     public Image[] healthBarImage;
     public bool dead;
 
+    
+    public static HealthBar Instance;
+
+    private void Awake() {
+        Instance = this;
+    }
 
     void Start() {
         healthCurrent = healthBarImage.Length;

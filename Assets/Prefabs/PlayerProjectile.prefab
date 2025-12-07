@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 493955163858372599}
   - component: {fileID: 8013731602491406807}
   - component: {fileID: 4779898129150716804}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: PlayerProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -207,12 +207,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Damage
   whoDamage: 1
-  whatIsEnemy:
-    serializedVersion: 2
-    m_Bits: 128
-  whatIsPlayer:
-    serializedVersion: 2
-    m_Bits: 8
 --- !u!114 &4779898129150716804
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -227,4 +221,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerProjectile
   speed: 15
   timeToDestroy: 3
-  damage: 0
