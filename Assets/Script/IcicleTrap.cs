@@ -29,7 +29,7 @@ public class IcicleTrap : MonoBehaviour {
     void ResetCoolDown() {
         coolDown = false;
         icicleImage.enabled = true;
-        icicleFalling.SetActive(true);
+        icicleFalling.SetActive(false);
         
     }
 }

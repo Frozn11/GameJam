@@ -12,11 +12,13 @@ public class IcicleFalling : MonoBehaviour {
     public float currentSpeed;
     [Space] 
     
+    private Vector2 startPos;
     public bool inverted;
     public Rigidbody2D rb;
     
     void Start() {
         currentSpeed = startSpeed;
+        startPos = transform.position;
     }
     
     // Update is called once per frame
@@ -24,21 +26,23 @@ public class IcicleFalling : MonoBehaviour {
         //Increase speed over time, clamped to maxSpeed
         currentSpeed = Mathf.Min(currentSpeed + accelerationRate * Time.fixedDeltaTime, maxSpeed);
         
-        //Apply velocity                this part checks if it should go up or down
-        //                                            ↓
+        //Apply velocity, ↓this part checks if it should go up or down
         float velocity = inverted ? currentSpeed : -currentSpeed;
         rb.linearVelocity = new Vector2(0, velocity);
     }
 
-    public void OnCollisionExit2D(Collision2D other) {
+    void OnTriggerEnter2D(Collider2D other) {
         if (other.gameObject.layer == LayerMask.NameToLayer("Player")) {
             HealthBar.Instance.Damage(damage);
             gameObject.SetActive(false);
+            transform.position = startPos;
             
         }
 
         if (other.gameObject.layer == LayerMask.NameToLayer("Ground")) {
             gameObject.SetActive(false);
+            transform.position = startPos;
+            
         }
     }
     
