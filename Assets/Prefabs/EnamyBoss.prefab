@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 194060713348833229}
   - component: {fileID: 3814532380796304243}
   m_Layer: 7
-  m_Name: Enamy
+  m_Name: EnamyBoss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
