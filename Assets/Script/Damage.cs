@@ -33,7 +33,8 @@ public class Damage : MonoBehaviour {
 
         if (other.gameObject.layer == LayerMask.NameToLayer("Enemy") && (whoDamage & whoDamage.Enemy) != 0) {
             Destroy(other.gameObject);
-        }
+        }    
+        
     }
     
 }

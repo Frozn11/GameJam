@@ -17,9 +17,9 @@ public class EnemyBossProjectile : MonoBehaviour {
         transform.rotation = Quaternion.Euler(0, 0, rot);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    void OnTriggerEnter(Collision2D other) {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Ground")) {
+            Destroy(gameObject);
+        }  
     }
 }

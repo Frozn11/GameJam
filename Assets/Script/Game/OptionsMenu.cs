@@ -55,7 +55,7 @@ public class OptionsMenu : MonoBehaviour
     }
 
     public void QuitToMenu() {
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("MainManu");
         Time.timeScale = 1;
     }
 
