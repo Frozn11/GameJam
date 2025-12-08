@@ -16,6 +16,7 @@ public class HealthBar : MonoBehaviour {
         healthCurrent = healthBarImage.Length;
     }
     
+    // отнимает ХП
     public void Damage(int damage) {
         if (healthCurrent <= 0 || PlayerController.Instance.invincible) return;
         healthCurrent -= damage;
@@ -25,11 +26,15 @@ public class HealthBar : MonoBehaviour {
             OptionsMenu.Instance.DeadMenu();
         }
     }   
+    
+    // добавляет ХП
     public void Heal(int heal) {
         if (healthCurrent >= healthBarImage.Length || PlayerController.Instance.IsDead()) return;
         healthCurrent += heal;
         healthBarImage[healthCurrent - 1].enabled = true;
     }   
+    
+    // добавляет ХП до лимита 
     public void HealMax() {
         healthCurrent = 3;
         healthBarImage[0].enabled = true;

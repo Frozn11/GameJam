@@ -9,7 +9,8 @@ public class EnemyBossProjectile : MonoBehaviour {
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-
+        
+        // берёт положение игрока
         Vector3 direction = PlayerController.Instance.gameObject.transform.position - transform.position;
         rb.linearVelocity = new Vector2(direction.x, direction.y).normalized * speed;
 

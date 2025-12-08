@@ -17,11 +17,12 @@ public class BossHealth : MonoBehaviour {
             Destroy(gameObject);
         }
     }
-
+    
+    // отнимает ХП
     public void Damage(int damage) {
         health -= damage;
     }
-
+    // добавляет ХП
     public void Heal(int heal) {
         health += heal;
     }
