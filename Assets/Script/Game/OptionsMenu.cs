@@ -5,6 +5,7 @@ public class OptionsMenu : MonoBehaviour
 {
     public GameObject pauseMenu;
     public GameObject deadMenu;
+    public GameObject winMenu;
     bool paused = false;
     
     public static OptionsMenu Instance;
@@ -41,6 +42,10 @@ public class OptionsMenu : MonoBehaviour
         pauseMenu.SetActive(false);
         paused =  false;
         Time.timeScale = 1;
+    }
+
+    public void Win() {
+        winMenu.SetActive(true);
     }
 
     public void Restart() {

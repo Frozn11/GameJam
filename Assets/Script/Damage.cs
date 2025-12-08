@@ -14,12 +14,7 @@ public class Damage : MonoBehaviour {
     [SerializeField]
     public whoDamage whoDamage;
     public bool DestroyOnCollision;
-
-    void Start() {
-        Debug.Log(whoDamage);
-        Debug.Log((whoDamage & whoDamage.Boss) != 0);
-        Debug.Log((whoDamage & whoDamage.Enemy) != 0);
-    }
+    
     
     public void OnTriggerEnter2D(Collider2D other) {
         if (other.gameObject.layer == LayerMask.NameToLayer("Player") && (whoDamage & whoDamage.Player) != 0) {

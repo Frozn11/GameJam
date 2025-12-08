@@ -3,7 +3,8 @@ using UnityEngine;
 public class EnemyBossShooting : MonoBehaviour {
     public GameObject projectile;
     public Transform projectilePos;
-
+    public float TimeToShoot;
+    
     private float timer;
 
     private EnemyBossController _enemyBossController;
@@ -21,7 +22,7 @@ public class EnemyBossShooting : MonoBehaviour {
         if (distance <= 10f) {
             timer += Time.deltaTime;
                 
-            if (timer >= 1f) {
+            if (timer >= TimeToShoot) {
                 timer = 0;
                 Shoot();
             }

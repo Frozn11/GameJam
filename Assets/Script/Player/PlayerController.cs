@@ -29,8 +29,8 @@ public class PlayerController : MonoBehaviour {
     public bool grounded, jumping, dead, lookingRight, invincible;
     
     // BoxCast parameters - using for ground check
-    Vector2 boxSize = new Vector2(1.01f, 0.1f); // x, y
-    float distance = 0.99f;
+    public Vector2 boxSize = new Vector2(1.44f, 0.1f); // x, y
+    public float distance = 1.47f;
     Vector2 direction = Vector2.down; 
     
     //other
@@ -78,10 +78,10 @@ public class PlayerController : MonoBehaviour {
          rb.linearVelocity = new Vector2(x * speed, rb.linearVelocity.y);//изменяет скорость персонажа по горизонтали
 
          if (x == 1) {
-             Flip(1, true);
+             Flip(1.5f, true);
          }
          else if (x == -1) {
-             Flip(-1, false);
+             Flip(-1.5f, false);
          }
          
          if (!readyToJump) {
