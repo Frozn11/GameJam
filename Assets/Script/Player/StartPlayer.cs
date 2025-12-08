@@ -8,6 +8,7 @@ public class StartPlayer : MonoBehaviour
         for (int i = transform.childCount - 1; i >= 0; i--) {
             transform.GetChild(i).parent = null;
         }
+        Destroy(gameObject);
     }
     
 }

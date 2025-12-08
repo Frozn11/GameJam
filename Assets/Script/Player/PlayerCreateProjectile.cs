@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerCreateProjectile : MonoBehaviour {
@@ -6,6 +7,7 @@ public class PlayerCreateProjectile : MonoBehaviour {
     public float CoolDownTime = 0.5f;
     public bool shoot, coolDown;
     
+    public List<GameObject> projectiles = new List<GameObject>();
 
     public static PlayerCreateProjectile Instance;
 
@@ -26,18 +28,16 @@ public class PlayerCreateProjectile : MonoBehaviour {
     }
     
     public void CreateProjectile() {
+        if(projectiles.Count >= 2) return;
         //moves projectileSpawnPos.position.x by .33 meters
         Vector2 Pos = new Vector2(projectileSpawnPos.position.x, projectileSpawnPos.position.y);
-        Instantiate(projectile, Pos, projectileSpawnPos.rotation);
-    }
-
-    public void Flip(float flip) {
-        Vector3 localScale = projectileSpawnPos.localScale;
-        localScale.x = flip; // change's the X scale
-        projectileSpawnPos.localScale = localScale;
+        GameObject projectileObj = Instantiate(projectile, Pos, projectileSpawnPos.rotation);
+        
+        projectiles.Add(projectileObj);
     }
 
     void ResetCoolDown() {
         coolDown = false;
     }
 }
+
