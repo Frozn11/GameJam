@@ -41,7 +41,7 @@ public class GiftPickUp : MonoBehaviour
         {
             audioSource.PlayOneShot(pickupSound);
         }
-        HealthBar.Instance.Heal(1);
+        HealthBar.Instance.HealMax();
         Destroy(giftObject);
         UpdateScoreUI();
     }

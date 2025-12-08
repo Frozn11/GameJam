@@ -29,6 +29,12 @@ public class HealthBar : MonoBehaviour {
         if (healthCurrent >= healthBarImage.Length || PlayerController.Instance.IsDead()) return;
         healthCurrent += heal;
         healthBarImage[healthCurrent - 1].enabled = true;
+    }   
+    public void HealMax() {
+        healthCurrent = 3;
+        healthBarImage[0].enabled = true;
+        healthBarImage[1].enabled = true;
+        healthBarImage[2].enabled = true;
     }
 }
 
