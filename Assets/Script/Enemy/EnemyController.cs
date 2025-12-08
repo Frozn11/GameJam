@@ -18,6 +18,8 @@ public class EnemyController : MonoBehaviour
     private float direction = 1;
     
     private bool isGroundedL, isGroundedR, playerDetected;
+
+    private Vector2 box = new Vector2(6f, 1.5f);
     
     private Rigidbody2D rb;
 
@@ -47,6 +49,14 @@ public class EnemyController : MonoBehaviour
             playerDetected = true;
             Debug.Log("Player Detected");
         }
+
+        if (playerDetected) {
+            Debug.Log("ye eh");
+            Collider2D player = Physics2D.OverlapBox(transform.position, box,0, playerLayer);
+            if (player != null) {
+                FacePlayer(player.transform);
+            }
+        }
         
         if (!isGroundedR) {
             FlipL();
@@ -63,7 +73,19 @@ public class EnemyController : MonoBehaviour
             rb.linearVelocity = new Vector2(direction * moveSpeed, rb.linearVelocity.y);
         }
     }
-    
+
+    void FacePlayer(Transform player) {
+        Debug.Log("ye huh");
+        if (player.position.x > transform.position.x) {
+            FlipR();
+            Debug.Log("ye R");
+        }
+        else {
+            FlipL();
+            Debug.Log("ye L");
+        }
+        
+    }
     private void FlipR() {
         isFacingRight = true;
         direction = 1f;

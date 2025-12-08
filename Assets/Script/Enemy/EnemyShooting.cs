@@ -17,7 +17,7 @@ public class EnemyShooting : MonoBehaviour
     void Update() {
 
         float distance = Vector2.Distance(transform.position, PlayerController.Instance.gameObject.transform.position);
-        Debug.Log("Distance: " + distance);
+        //Debug.Log("Distance: " + distance);
         
         if (distance <= 10f && enemyController.IsPlayerDetected()) {
             timer += Time.deltaTime;
