@@ -12,7 +12,8 @@ public class EnemyBossController : MonoBehaviour
     public LayerMask playerLayer;
     private float direction = 1;
     
-
+    public float siz;
+    
     private Vector2 box = new Vector2(6f, 1.5f);
     
     private Rigidbody2D rb;
@@ -47,7 +48,7 @@ public class EnemyBossController : MonoBehaviour
         direction = 1f;
         // 2. Flip the sprite visually
         Vector3 localScale = transform.localScale;
-        localScale.x = 1f; // Reverse the X scale
+        localScale.x = siz; // Reverse the X scale
         transform.localScale = localScale;
     }  
     private void FlipL() {
@@ -55,7 +56,7 @@ public class EnemyBossController : MonoBehaviour
         direction = -1f;
         // 2. Flip the sprite visually
         Vector3 localScale = transform.localScale;
-        localScale.x = -1f; // Reverse the X scale
+        localScale.x = -siz; // Reverse the X scale
         transform.localScale = localScale;
     }
 

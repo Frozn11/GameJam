@@ -20,7 +20,7 @@ public class Damage : MonoBehaviour {
         if (other.gameObject.layer == LayerMask.NameToLayer("Player") && (whoDamage & whoDamage.Player) != 0) {
             HealthBar.Instance.Damage(1);
             if (DestroyOnCollision) {
-                gameObject.GetComponent<PlayerProjectile>().RemoveFromList(other.gameObject);
+                Destroy(gameObject);
             }
         }   
         if (other.gameObject.layer == LayerMask.NameToLayer("Boss") && (whoDamage & whoDamage.Boss) != 0) {
