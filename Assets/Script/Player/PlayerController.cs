@@ -18,7 +18,6 @@ public class PlayerController : MonoBehaviour {
     private float jumpCooldown = 0.32f;
     public float jumpForce = 7f;
     public float coyoteTime = 0.3f;
-    [HideInInspector]
     public int jumpsLeft = 1;
     public int maxJumps = 1;
     private int jumpCounterResetTime = 10;
@@ -27,7 +26,7 @@ public class PlayerController : MonoBehaviour {
     //Input
     float x, y;
 
-    public bool grounded, jumping, dead;
+    public bool grounded, jumping, dead, lookingRight;
     
     // BoxCast parameters - using for ground check
     Vector2 boxSize = new Vector2(1.01f, 0.1f); // x, y
@@ -49,12 +48,11 @@ public class PlayerController : MonoBehaviour {
         if (!dead) {
             fallSpeed = rb.linearVelocity.y;
             lastMoveSpeed = VectorExtensions.XZVector(rb.linearVelocity);
-            
         }
     }
 
     public void Jump() {
-        if ((grounded && jumpsLeft >= 0) && readyToJump) {
+        if ((grounded || jumpsLeft >= 0) && readyToJump) {
             readyToJump = false;
             jumpsLeft--;
             resetJumpCounter = 0;
@@ -69,12 +67,22 @@ public class PlayerController : MonoBehaviour {
     }
 
     public void Movement(float x) {
-        if (dead) return;
+        if (dead) {
+            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+            return;
+        }
         GroundCheck();
 		this.x = x;
         if (readyToJump && jumping) Jump();
         
          rb.linearVelocity = new Vector2(x * speed, rb.linearVelocity.y);//изменяет скорость персонажа по горизонтали
+
+         if (x == 1) {
+             Flip(1, true);
+         }
+         else if (x == -1) {
+             Flip(-1, false);
+         }
          
          if (!readyToJump) {
              resetJumpCounter++;
@@ -83,6 +91,14 @@ public class PlayerController : MonoBehaviour {
                  ResetJump();
              }
          }
+    }
+    
+    void Flip(float scaleFlip, bool dir)
+    {
+        lookingRight = dir;
+        Vector3 scale = transform.localScale;
+        scale.x = scaleFlip;
+        transform.localScale = scale;
     }
     
     private void ResetJump() {
@@ -104,7 +120,11 @@ public class PlayerController : MonoBehaviour {
     void NotOnGround() {
         grounded = false;
     }
-
+    
+    public bool IsDead() {
+        return dead;
+    }
+    
 
     void OnDrawGizmosSelected(){
         Vector2 position = transform.position;
