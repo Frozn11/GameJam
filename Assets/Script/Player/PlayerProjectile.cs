@@ -22,8 +22,15 @@ public class PlayerProjectile : MonoBehaviour {
     }
 
     void Destroy() {
-        PlayerCreateProjectile.Instance.projectiles.Remove(gameObject);
         Destroy(gameObject);
+        RemoveFromList(gameObject);
+    }
+
+    public void RemoveFromList(GameObject other) {
+        PlayerCreateProjectile.Instance.projectiles.Remove(other);
+        Destroy(gameObject);
+        
+        
     }
     
 }

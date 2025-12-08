@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour {
     //Input
     float x, y;
 
-    public bool grounded, jumping, dead, lookingRight;
+    public bool grounded, jumping, dead, lookingRight, invincible;
     
     // BoxCast parameters - using for ground check
     Vector2 boxSize = new Vector2(1.01f, 0.1f); // x, y

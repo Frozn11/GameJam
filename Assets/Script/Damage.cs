@@ -1,25 +1,42 @@
 using System;
-using Unity.VisualScripting;
 using UnityEngine;
 
+[Flags] 
 public enum whoDamage {
-    Player,
-    Enemy
+    None = 1,
+    Player = 2,
+    Enemy = 4,
+    Boss = 8
 }
 
 public class Damage : MonoBehaviour {
 
+    [SerializeField]
     public whoDamage whoDamage;
     public bool DestroyOnCollision;
+
+    void Start() {
+        Debug.Log(whoDamage);
+        Debug.Log((whoDamage & whoDamage.Boss) != 0);
+        Debug.Log((whoDamage & whoDamage.Enemy) != 0);
+    }
     
     public void OnTriggerEnter2D(Collider2D other) {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Player") && whoDamage == whoDamage.Player) {
-            Debug.Log("MAN GET DAMAGE");
+        if (other.gameObject.layer == LayerMask.NameToLayer("Player") && (whoDamage & whoDamage.Player) != 0) {
             HealthBar.Instance.Damage(1);
-            if (DestroyOnCollision) Destroy(gameObject);
+            if (DestroyOnCollision) {
+                gameObject.GetComponent<PlayerProjectile>().RemoveFromList(other.gameObject);
+            }
+        }   
+        if (other.gameObject.layer == LayerMask.NameToLayer("Boss") && (whoDamage & whoDamage.Boss) != 0) {
+            other.GetComponent<BossHealth>().Damage(1);
+            if (DestroyOnCollision) {
+                gameObject.GetComponent<PlayerProjectile>().RemoveFromList(gameObject);
+                
+            }
         }
 
-        if (other.gameObject.layer == LayerMask.NameToLayer("Enemy") && whoDamage == whoDamage.Enemy) {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Enemy") && (whoDamage & whoDamage.Enemy) != 0) {
             Destroy(other.gameObject);
         }
     }

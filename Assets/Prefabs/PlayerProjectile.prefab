@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2900156235650101964}
   - component: {fileID: 8528830368485904221}
   - component: {fileID: 493955163858372599}
-  - component: {fileID: 8013731602491406807}
+  - component: {fileID: -8485752467276398924}
   - component: {fileID: 4779898129150716804}
   m_Layer: 0
   m_Name: PlayerProjectile
@@ -130,7 +130,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.5
+  m_Radius: 0.8
 --- !u!58 &8528830368485904221
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -194,7 +194,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &8013731602491406807
+--- !u!114 &-8485752467276398924
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -206,7 +206,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a64f285c06249f28c612462efcc1ca3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Damage
-  whoDamage: 1
+  whoDamage: 12
+  DestroyOnCollision: 1
 --- !u!114 &4779898129150716804
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -220,4 +221,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerProjectile
   speed: 15
-  timeToDestroy: 3
+  timeToDestroy: 2

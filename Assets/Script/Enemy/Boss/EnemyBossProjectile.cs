@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class EnemyProjectile : MonoBehaviour {
+public class EnemyBossProjectile : MonoBehaviour {
     private Rigidbody2D rb;
     
     public float speed;

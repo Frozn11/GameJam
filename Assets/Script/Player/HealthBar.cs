@@ -17,7 +17,7 @@ public class HealthBar : MonoBehaviour {
     }
     
     public void Damage(int damage) {
-        if (healthCurrent <= 0) return;
+        if (healthCurrent <= 0 || PlayerController.Instance.invincible) return;
         healthCurrent -= damage;
         healthBarImage[healthCurrent].enabled = false;
         if (healthCurrent <= 0) {
