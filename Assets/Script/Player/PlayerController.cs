@@ -18,7 +18,6 @@ public class PlayerController : MonoBehaviour {
     private float jumpCooldown = 0.32f;
     public float jumpForce = 7f;
     public float coyoteTime = 0.3f;
-    [HideInInspector]
     public int jumpsLeft = 1;
     public int maxJumps = 1;
     private int jumpCounterResetTime = 10;
@@ -49,12 +48,11 @@ public class PlayerController : MonoBehaviour {
         if (!dead) {
             fallSpeed = rb.linearVelocity.y;
             lastMoveSpeed = VectorExtensions.XZVector(rb.linearVelocity);
-            
         }
     }
 
     public void Jump() {
-        if ((grounded && jumpsLeft >= 0) && readyToJump) {
+        if ((grounded || jumpsLeft >= 0) && readyToJump) {
             readyToJump = false;
             jumpsLeft--;
             resetJumpCounter = 0;
@@ -69,7 +67,10 @@ public class PlayerController : MonoBehaviour {
     }
 
     public void Movement(float x) {
-        if (dead) return;
+        if (dead) {
+            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+            return;
+        }
         GroundCheck();
 		this.x = x;
         if (readyToJump && jumping) Jump();
@@ -119,7 +120,11 @@ public class PlayerController : MonoBehaviour {
     void NotOnGround() {
         grounded = false;
     }
-
+    
+    public bool IsDead() {
+        return dead;
+    }
+    
 
     void OnDrawGizmosSelected(){
         Vector2 position = transform.position;

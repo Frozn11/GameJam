@@ -3,9 +3,17 @@ using UnityEngine.SceneManagement;
 
 public class OptionsMenu : MonoBehaviour
 {
-    public GameObject PauseMenu;
+    public GameObject pauseMenu;
+    public GameObject deadMenu;
     bool paused = false;
+    
+    public static OptionsMenu Instance;
 
+
+    void Awake() {
+        Instance = this;
+    }
+    
     // Update is called once per frame
     void Update()
     {
@@ -19,14 +27,18 @@ public class OptionsMenu : MonoBehaviour
         }    
     }
 
+    public void DeadMenu() {
+        deadMenu.SetActive(true);
+    }
+
     public void Pause() {
-        PauseMenu.SetActive(true);
+        pauseMenu.SetActive(true);
         paused =  true;
         Time.timeScale = 0;
     }
 
     public void Unpause() {
-        PauseMenu.SetActive(false);
+        pauseMenu.SetActive(false);
         paused =  false;
         Time.timeScale = 1;
     }
@@ -39,6 +51,16 @@ public class OptionsMenu : MonoBehaviour
 
     public void QuitToMenu() {
         SceneManager.LoadScene("MainMenu");
+        Time.timeScale = 1;
+    }
+
+    public void QuitGame() {
+        Application.Quit();
+        Debug.Log("Bye");
+    }
+    
+    public void LoadLevelByName(string levelName) {
+        SceneManager.LoadScene(levelName);
         Time.timeScale = 1;
     }
 }
