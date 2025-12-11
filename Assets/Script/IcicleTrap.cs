@@ -14,12 +14,14 @@ public class IcicleTrap : MonoBehaviour {
     
     // Update is called once per frame
     void Update() {
+        // выстрел в Raycast вниз
         playerDetected = Physics2D.Raycast(transform.position, Vector2.down, rayDistance, playerLayer);
         Debug.DrawRay(transform.position, Vector2.down * rayDistance, Color.red);
 
-        
+        // если Raycast обнаруживает игрока и кулдауна нет, то Сосулька активируется
         if (playerDetected && !coolDown) {
             coolDown = true;
+            // через 5 секунд кулдауна убирается
             Invoke("ResetCoolDown", coolDownTime);
             icicleImage.enabled = false;
             icicleFalling.SetActive(true);

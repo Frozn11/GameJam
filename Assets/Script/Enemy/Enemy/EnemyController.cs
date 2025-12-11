@@ -20,7 +20,7 @@ public class EnemyController : MonoBehaviour
 
     void Start()
     {
-        // 1. Find the player GameObject by its tag (make sure your player has the tag "Player")
+        // 1. Найдите игрока GameObject по своему тегу (Убедитесь, что у вашего игрока есть тег "Player")
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         
         if (player != null)
@@ -44,22 +44,22 @@ public class EnemyController : MonoBehaviour
     {
         if (playerTransform == null)
         {
-            // If we lost the player or didn't find them, do nothing
+            // Если мы потеряли игрока или не нашли его, ничего не делать.
             return;
         }
 
-        // Calculate the distance between the enemy and the player
+        // Рассчитайте расстояние между противником и игроком.
         float distanceToPlayer = Vector2.Distance(transform.position, playerTransform.position);
 
-        // Check if the player is within the sight range
+        // Проверьте, находится ли игрок в пределах видимости.
         if (distanceToPlayer < sightRange)
         {
-            // The player is seen! Chase them.
+            // Игрок замечен! Преследуйте его.
             ChasePlayer(distanceToPlayer);
         }
         else
         {
-            // Player is out of sight, stop moving
+            // Игрок вне поля зрения, прекратите движение.
             rb.linearVelocity = Vector2.zero;
         }
     }
@@ -72,35 +72,35 @@ public class EnemyController : MonoBehaviour
             // Calculate the direction vector towards the player
             Vector2 direction = (playerTransform.position - transform.position).normalized;
 
-            // Apply velocity to the Rigidbody2D for movement
-            // Use direction * moveSpeed to move towards the player
+            // Примените скорость к объекту Rigidbody2D для управления движением.
+            // Использовать direction * moveSpeed двигаться в сторону игрока
             rb.linearVelocity = direction * moveSpeed;
 
-            // Handle sprite flipping (optional, but important for 2D)
+            // Обработка переворачивания спрайтов (необязательно, но важно для 2D).
             FlipSprite(direction.x);
         }
         else
         {
-            // 2. We are close enough, stop moving (enter attack state if implemented)
+            // 2. Мы достаточно близко, прекратите движение (перейдите в режим атаки, если это предусмотрено).
             rb.linearVelocity = Vector2.zero;
         }
     }
     
-    // Simple method to flip the enemy sprite based on movement direction
+    // Простой способ перевернуть спрайт врага в зависимости от направления движения.
     void FlipSprite(float directionX)
     {
-        // Only flip if we are moving significantly
+        // Переключайте режим работы только в том случае, если мы значительно продвинемся вперед.
         if (Mathf.Abs(directionX) > 0.1f)
         {
-            // Check if the direction is left (< 0) or right (> 0)
+            // Проверьте, влево (< 0) или вправо (> 0).
             if (directionX < 0)
             {
-                // Moving left, face left (Scale X = -1)
+                // Двигаясь влево, повернитесь лицом влево (масштаб X = -1)
                 transform.localScale = new Vector3(-1, 1, 1);
             }
             else
             {
-                // Moving right, face right (Scale X = 1)
+                // Двигаясь вправо, повернитесь лицом вправо (масштаб X = 1)
                 transform.localScale = new Vector3(1, 1, 1);
             }
         }

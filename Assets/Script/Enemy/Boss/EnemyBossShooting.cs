@@ -15,10 +15,11 @@ public class EnemyBossShooting : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-
+        // период дистанцию между врагом и игроком 
         float distance = Vector2.Distance(transform.position, PlayerController.Instance.gameObject.transform.position);
         //Debug.Log("Distance: " + distance);
         
+        //если игрок Ближе или равно 10м 
         if (distance <= 10f) {
             timer += Time.deltaTime;
                 

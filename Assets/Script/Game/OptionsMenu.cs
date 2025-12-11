@@ -18,6 +18,7 @@ public class OptionsMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // при нажатом Esc то пауза 
         if (Input.GetButtonDown("Cancel")) {
             if (!paused) {
                 Pause();

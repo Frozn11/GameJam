@@ -61,6 +61,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     public void SetInput(Vector2 dir, bool jumping) {
+        // получает нажатие от игрока с другого скрипта (PlayerInput.cs)
         x = dir.x;
         y = dir.y;
         this.jumping = jumping;
@@ -77,9 +78,11 @@ public class PlayerController : MonoBehaviour {
         
          rb.linearVelocity = new Vector2(x * speed, rb.linearVelocity.y);//изменяет скорость персонажа по горизонтали
 
+         // есть в игрок, двигается направо повернуть его направо
          if (x == 1) {
              Flip(1.5f, true);
          }
+         // если игру двигается налево повернуть его налево
          else if (x == -1) {
              Flip(-1.5f, false);
          }
@@ -106,6 +109,7 @@ public class PlayerController : MonoBehaviour {
     }
     
     void GroundCheck() {
+        // проверка если игрок на Земле 
         RaycastHit2D hit = Physics2D.BoxCast(transform.position, boxSize, 0f, Vector2.down, distance, whatIsGround);
         
         if (hit) {

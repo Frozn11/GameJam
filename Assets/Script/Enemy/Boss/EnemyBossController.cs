@@ -24,6 +24,7 @@ public class EnemyBossController : MonoBehaviour
     }
 
     void Update() {
+        // raycast
         Collider2D player = Physics2D.OverlapBox(transform.position, box,0, playerLayer);
         if (player != null) {
             FacePlayer(player.transform);
